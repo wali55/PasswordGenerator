@@ -1,4 +1,12 @@
-import {SafeAreaView, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, {useState} from 'react';
 
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
@@ -23,7 +31,7 @@ export default function App() {
   const [numbers, setNumbers] = useState(false);
   const [symbols, setSymbols] = useState(false);
 
-  const generatePassword = (passwordLength: number) => {
+  const generatePasswordString = (passwordLength: number) => {
     let characterList = '';
 
     const uppercaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -76,43 +84,92 @@ export default function App() {
           <Formik
             initialValues={{passwordLength: ''}}
             validationSchema={PasswordSchema}
-            onSubmit={(values, {setSubmitting}) => {
-              setTimeout(() => {
-                alert(JSON.stringify(values, null, 2));
-                setSubmitting(false);
-              }, 400);
+            onSubmit={(values) => {
+              console.log(values);
+              generatePasswordString(Number(values.passwordLength));
             }}>
             {({
               values,
               errors,
               touched,
+              isValid,
               handleChange,
-              handleBlur,
               handleSubmit,
-              isSubmitting,
+              handleReset,
               /* and other goodies */
             }) => (
-              <form onSubmit={handleSubmit}>
-                <input
-                  type="email"
-                  name="email"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.email}
-                />
-                {errors.email && touched.email && errors.email}
-                <input
-                  type="password"
-                  name="password"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.password}
-                />
-                {errors.password && touched.password && errors.password}
-                <button type="submit" disabled={isSubmitting}>
-                  Submit
-                </button>
-              </form>
+              <>
+                <View style={styles.inputWrapper}>
+                  <View style={styles.inputColumn}>
+                    <Text style={styles.heading}>Password Length</Text>
+                    {touched.passwordLength && errors.passwordLength && (
+                      <Text style={styles.errorText}>
+                        {errors.passwordLength}
+                      </Text>
+                    )}
+                  </View>
+                  <TextInput
+                    style={styles.inputStyle}
+                    value={values.passwordLength}
+                    onChangeText={handleChange('passwordLength')}
+                    placeholder="Ex. 8"
+                    keyboardType="numeric"
+                  />
+                </View>
+                <View style={styles.inputWrapper}>
+                  <Text style={styles.heading}>Include Lowercase</Text>
+                  <View>
+                    <BouncyCheckbox
+                      isChecked={lowercase}
+                      onPress={() => setLowercase(!lowercase)}
+                      fillColor="#9BEC00"
+                    />
+                  </View>
+                </View>
+                <View style={styles.inputWrapper}>
+                  <Text style={styles.heading}>Include Uppercase</Text>
+                  <View>
+                    <BouncyCheckbox
+                      isChecked={uppercase}
+                      onPress={() => setUppercase(!uppercase)}
+                      fillColor="#9BEC00"
+                    />
+                  </View>
+                </View>
+                <View style={styles.inputWrapper}>
+                  <Text style={styles.heading}>Include Numbers</Text>
+                  <View>
+                    <BouncyCheckbox
+                      isChecked={numbers}
+                      onPress={() => setNumbers(!numbers)}
+                      fillColor="#9BEC00"
+                    />
+                  </View>
+                </View>
+                <View style={styles.inputWrapper}>
+                  <Text style={styles.heading}>Include Symbols</Text>
+                  <View>
+                    <BouncyCheckbox
+                      isChecked={symbols}
+                      onPress={() => setSymbols(!symbols)}
+                      fillColor="#9BEC00"
+                    />
+                  </View>
+                </View>
+
+                <View style={styles.formActions}>
+                  <TouchableOpacity
+                  disabled={!isValid}
+                  style={styles.primaryBtn}
+                  onPress={handleSubmit}
+                  >
+                    <Text style={styles.primaryBtnTxt}>Generate Password</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity>
+                    <Text>Reset</Text>
+                  </TouchableOpacity>
+                </View>
+              </>
             )}
           </Formik>
         </View>
