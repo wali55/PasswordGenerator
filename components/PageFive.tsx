@@ -1,4 +1,4 @@
-import {Image, ImageSourcePropType, StyleSheet, Text, View} from 'react-native';
+import {Image, ImageSourcePropType, Pressable, StyleSheet, Text, View} from 'react-native';
 import React, { useState } from 'react';
 import type { PropsWithChildren } from 'react';
 
@@ -55,6 +55,11 @@ export default function PageFive(): JSX.Element {
   return (
     <View style={styles.container}>
       <Dice imageUrl={diceImage} />
+      <Pressable
+      onPress={rollDiceOnTap}
+      >
+        <Text style={styles.rollDiceBtnText}>Roll the dice</Text>
+      </Pressable>
     </View>
   );
 }
