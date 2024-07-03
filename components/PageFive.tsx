@@ -9,9 +9,16 @@ import DiceFour from '../assets/Four.png';
 import DiceFive from '../assets/Five.png';
 import DiceSix from '../assets/Six.png';
 
+import ReactNativeHapticFeedback from "react-native-haptic-feedback";
+
 type DiceProps = PropsWithChildren<{
   imageUrl: ImageSourcePropType
 }>
+
+const options = {
+  enableVibrateFallback: true,
+  ignoreAndroidSystemSettings: false,
+};
 
 const Dice = ({imageUrl}: DiceProps): JSX.Element => {
   return (
@@ -23,6 +30,7 @@ const Dice = ({imageUrl}: DiceProps): JSX.Element => {
 
 export default function PageFive(): JSX.Element {
   const [diceImage, setDiceImage] = useState<ImageSourcePropType>(DiceOne);
+  const [diceImage2, setDiceImage2] = useState<ImageSourcePropType>(DiceTwo);
 
   const rollDiceOnTap = () => {
     let randomNumber = Math.floor(Math.random() * 6) + 1;
@@ -50,11 +58,46 @@ export default function PageFive(): JSX.Element {
         setDiceImage(DiceOne);
         break;
     }
+
+    ReactNativeHapticFeedback.trigger("impactHeavy", options);
+    rollDiceOnTap2();
+  };
+
+  const rollDiceOnTap2 = () => {
+    let randomNumber = Math.floor(Math.random() * 6) + 1;
+
+    switch (randomNumber) {
+      case 1:
+        setDiceImage2(DiceOne);
+        break;
+      case 2:
+        setDiceImage2(DiceTwo);
+        break;
+      case 3:
+        setDiceImage2(DiceThree);
+        break;
+      case 4:
+        setDiceImage2(DiceFour);
+        break;
+      case 5:
+        setDiceImage2(DiceFive);
+        break;
+      case 6:
+        setDiceImage2(DiceSix);
+        break;
+      default:
+        setDiceImage2(DiceOne);
+        break;
+    }
+
+    ReactNativeHapticFeedback.trigger("impactHeavy", options);
   };
 
   return (
     <View style={styles.container}>
+      <View style={styles.box1}></View>
       <Dice imageUrl={diceImage} />
+      <Dice imageUrl={diceImage2} />
       <Pressable
       onPress={rollDiceOnTap}
       >
@@ -89,4 +132,13 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     textTransform: 'uppercase',
   },
+  box1: {
+    height: 50,
+    width: 50,
+    backgroundColor: 'red',
+    position: 'absolute',
+    zIndex: 1,
+    top: 30,
+    display: 'none'
+  }
 });
