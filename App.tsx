@@ -5,12 +5,12 @@ import PageTwo from './components/PageTwo';
 import PageThree from './components/PageThree';
 import PageFour from './components/PageFour';
 import PageFive from './components/PageFive';
-import CurrencyConverter from './components/CurrencyConverter/CurrencyConverter';
+import CurrencyNew from './components/CurrencyNew/CurrencyNew';
 
 const App = () => {
   return (
     <>
-      <CurrencyConverter />
+      <CurrencyNew />
     </>
   );
 };
