@@ -15,6 +15,7 @@
     "react-native": "0.74.2",
     "react-native-bouncy-checkbox": "^4.0.1",
     "react-native-haptic-feedback": "^2.2.0",
+    "react-native-snackbar": "^2.6.2",
     "yup": "^1.4.0"
   },
   "devDependencies": {

@@ -6,11 +6,13 @@ import PageThree from './components/PageThree';
 import PageFour from './components/PageFour';
 import PageFive from './components/PageFive';
 import CurrencyNew from './components/CurrencyNew/CurrencyNew';
+import CurrencyMe from './components/CurrencyMe/CurrencyMe';
+import TicTacToeFirst from './components/TicTacToeFirst';
 
 const App = () => {
   return (
     <>
-      <CurrencyNew />
+      <TicTacToeFirst />
     </>
   );
 };
