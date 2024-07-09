@@ -8,11 +8,13 @@ import PageFive from './components/PageFive';
 import CurrencyNew from './components/CurrencyNew/CurrencyNew';
 import CurrencyMe from './components/CurrencyMe/CurrencyMe';
 import TicTacToeFirst from './components/TicTacToeFirst';
+import TicTacToe from './components/TicTacToe/TicTacToe';
+import TicTacToeMe from './components/TicTacToeMe/TicTacToeMe';
 
 const App = () => {
   return (
     <>
-      <TicTacToeFirst />
+      <TicTacToeMe />
     </>
   );
 };
